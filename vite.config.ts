@@ -6,6 +6,7 @@ import { defineConfig } from 'vitest/config'
 const rootDir = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
+  base: process.env.GITHUB_ACTIONS ? '/GREEN-API-Telegram-Chat/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
