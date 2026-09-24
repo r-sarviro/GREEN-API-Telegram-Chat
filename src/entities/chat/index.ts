@@ -1,0 +1,5 @@
+export type { Chat } from './model/types'
+export { createChatFromPhone } from './model/types'
+export { useChatStore } from './model/store'
+export { ChatAvatar } from './ui/ChatAvatar'
+export { enrichChatProfile } from './model/enrichChatProfile'

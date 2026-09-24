@@ -1,0 +1,45 @@
+.page {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-app);
+  position: relative;
+}
+
+.syncError {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(229, 57, 53, 0.15);
+  color: var(--danger);
+  font-size: 12px;
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.chatPane {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .pane {
+    width: 100%;
+    flex: 1;
+  }
+
+  .hideOnMobile {
+    display: none;
+  }
+}
