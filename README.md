@@ -4,7 +4,7 @@
 
 **Live:** https://r-sarviro.github.io/GREEN-API-Telegram-Chat/
 
-Деплой на GitHub Pages выполняется автоматически при push в `main` (Actions). Один раз включите в репозитории: **Settings → Pages → Source: GitHub Actions**.
+Деплой на GitHub Pages выполняется автоматически при push в `main` (Actions).
 
 ## Стек
 
