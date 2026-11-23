@@ -1,62 +1,70 @@
 # GREEN-API Telegram Chat
 
-Веб-чат для отправки и получения текстовых сообщений в Telegram через [GREEN-API](https://green-api.com/telegram).
+**Language:** [EN](README.md) · [RU](README.ru.md)
+
+Telegram web chat via GREEN-API: React, TypeScript, Vite, Feature-Sliced Design; GitHub Pages.
 
 **Live:** https://r-sarviro.github.io/GREEN-API-Telegram-Chat/
 
-Деплой на GitHub Pages выполняется автоматически при push в `main` (Actions).
+Deploy to GitHub Pages runs automatically on push to `main` (Actions).
 
-## Стек
+## Stack
 
 - React 19 + TypeScript + Vite
 - Feature-Sliced Design
 - Zustand, React Router
 - Vitest + Testing Library + MSW
 
-## Быстрый старт
+## Requirements
+
+- Node.js 20+
+- npm
+- A GREEN-API Telegram instance (`idInstance`, `apiTokenInstance`, `apiUrl`)
+
+## Quick start
 
 ```bash
 npm install
 npm run dev
 ```
 
-Откройте http://localhost:5173
+Open http://localhost:5173
 
-## Учётные данные и настройки инстанса
+## Instance credentials and settings
 
-1. Зарегистрируйтесь на [green-api.com](https://green-api.com/telegram) и создайте инстанс Telegram.
-2. В личном кабинете скопируйте `idInstance`, `apiTokenInstance` и `apiUrl`.
-3. Убедитесь, что инстанс в статусе **authorized** (авторизован в Telegram). При входе приложение проверяет это через `getStateInstance`: неверные креды или статус `notAuthorized` не пустят на экран чатов.
-4. Поле **`webhookUrl` оставьте пустым** — приложение получает события через HTTP API (`ReceiveNotification` / `DeleteNotification`), без внешнего webhook URL.
-5. В настройках уведомлений инстанса включите:
-   - **входящие сообщения** (`incomingWebhook`) — иначе новые сообщения из Telegram не появятся в чате;
-   - **уведомления о статусах исходящих** (`outgoingWebhook`) — иначе галочки доставки/прочтения в UI не обновятся;
-   - при необходимости — **исходящие сообщения с телефона / через API** (`outgoingAPIMessageWebhook`), чтобы видеть в очереди уведомлений и такие события.
+1. Sign up at [green-api.com](https://green-api.com/telegram) and create a Telegram instance.
+2. Copy `idInstance`, `apiTokenInstance`, and `apiUrl` from the dashboard.
+3. Make sure the instance status is **authorized**. On login the app checks this via `getStateInstance`: invalid credentials or `notAuthorized` block access to chats.
+4. Leave **`webhookUrl` empty** — the app receives events via HTTP API (`ReceiveNotification` / `DeleteNotification`), without an external webhook URL.
+5. In the instance notification settings enable:
+   - **incoming messages** (`incomingWebhook`) — otherwise new Telegram messages will not appear in the chat;
+   - **outgoing message status** (`outgoingWebhook`) — otherwise delivery/read ticks will not update in the UI;
+   - optionally **outgoing messages from phone / via API** (`outgoingAPIMessageWebhook`) to see those events in the notification queue as well.
 
-Без включённых статусов исходящих в кабинете галочки в интерфейсе останутся на «отправлено» и не перейдут в «доставлено» / «прочитано».
+Without outgoing status notifications enabled, ticks stay on “sent” and never move to “delivered” / “read”.
 
-## Сценарий использования
+## Usage scenario
 
-1. Войдите, указав `idInstance`, `apiTokenInstance`, `apiUrl`.
-2. На экране чатов список синхронизируется через `GetChats` (личные чаты); при необходимости нажмите «Новый чат» и введите номер телефона.
-3. При открытии диалога подгружается история (`GetChatHistory`); имена контактов — через `GetContactInfo`.
-4. Отправьте текстовое сообщение; статусы исходящих обновляются из `outgoingMessageStatus`.
-5. Ответ из Telegram появится автоматически (long-polling).
+1. Sign in with `idInstance`, `apiTokenInstance`, `apiUrl`.
+2. On the chats screen the list syncs via `GetChats` (personal chats); use “New chat” and enter a phone number when needed.
+3. Opening a dialog loads history (`GetChatHistory`); contact names come from `GetContactInfo`.
+4. Send a text message; outgoing statuses update from `outgoingMessageStatus`.
+5. Replies from Telegram appear automatically (long-polling).
 
-## Скрипты
+## Scripts
 
-| Команда       | Описание          |
-| ------------- | ----------------- |
-| `npm run dev` | Dev-сервер        |
-| `npm run build` | Production-сборка |
-| `npm test`    | Unit-тесты        |
-| `npm run lint` | ESLint           |
+| Command         | Purpose            |
+| --------------- | ------------------ |
+| `npm run dev`   | Dev server         |
+| `npm run build` | Production build   |
+| `npm test`      | Unit tests         |
+| `npm run lint`  | ESLint             |
 
-## Архитектура (FSD)
+## Project structure
 
-```
+```text
 src/
-  app/        — роутер, провайдеры, глобальные стили
+  app/        — router, providers, global styles
   pages/      — login, chat
   widgets/    — sidebar, message panel
   features/   — auth, create-chat, send-message, receive-messages, load-chat-history, sync-chats
@@ -66,6 +74,10 @@ src/
 
 ## API
 
-- Отправка: [`SendMessage`](https://green-api.com/v3/docs/api/sending/SendMessage/)
-- Получение: [`ReceiveNotification`](https://green-api.com/en/telegram/docs/api/receiving/technology-http-api/ReceiveNotification/) + [`DeleteNotification`](https://green-api.com/en/telegram/docs/api/receiving/technology-http-api/DeleteNotification/)
-- Контакты и чаты: `GetContactInfo`, `GetChats`, `GetChatHistory`, `GetAvatar`
+- Send: [`SendMessage`](https://green-api.com/v3/docs/api/sending/SendMessage/)
+- Receive: [`ReceiveNotification`](https://green-api.com/en/telegram/docs/api/receiving/technology-http-api/ReceiveNotification/) + [`DeleteNotification`](https://green-api.com/en/telegram/docs/api/receiving/technology-http-api/DeleteNotification/)
+- Contacts and chats: `GetContactInfo`, `GetChats`, `GetChatHistory`, `GetAvatar`
+
+## License
+
+MIT
